@@ -30,8 +30,7 @@ public class UserEntity {
 
     public UserEntity() {}
 
-    public UserEntity(Long id, String nome, String sobrenome, String email, String cpf, String celular, UserStatus userStatus) {
-        this.id = id;
+    public UserEntity(String nome, String sobrenome, String email, String cpf, String celular, UserStatus userStatus) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;

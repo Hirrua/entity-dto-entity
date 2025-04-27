@@ -11,19 +11,20 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserDto createAnUser(UserEntity userEntity) {
-        var user = toDto(userEntity);
-        userRepository.saveUser(userEntity);
-        return user;
+    public UserDto createAnUser(UserDto userDto) {
+        var user = toEntity(userDto);
+        userRepository.saveUser(user);
+        return userDto;
     }
 
-    private UserDto toDto(UserEntity userEntity) {
-        return new UserDto(userEntity.getNome(),
-                userEntity.getSobrenome(),
-                userEntity.getEmail(),
-                userEntity.getCpf(),
-                userEntity.getCelular(),
-                userEntity.getUserStatus()
+    private UserEntity toEntity(UserDto userDto) {
+        return new UserEntity(
+                userDto.nome(),
+                userDto.sobrenome(),
+                userDto.email(),
+                userDto.cpf(),
+                userDto.celular(),
+                userDto.userStatus()
         );
     }
 }
