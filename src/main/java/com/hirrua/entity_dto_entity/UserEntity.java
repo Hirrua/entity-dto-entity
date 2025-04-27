@@ -25,15 +25,19 @@ public class UserEntity {
 
     private String celular;
 
+    @Enumerated(EnumType.STRING)
+    private UserStatus userStatus = UserStatus.ACTIVE;
+
     public UserEntity() {}
 
-    public UserEntity(Long id, String nome, String sobrenome, String email, String cpf, String celular) {
+    public UserEntity(Long id, String nome, String sobrenome, String email, String cpf, String celular, UserStatus userStatus) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;
         this.cpf = cpf;
         this.celular = celular;
+        this.userStatus = userStatus;
     }
 
     public Long getId() {
@@ -82,5 +86,26 @@ public class UserEntity {
 
     public void setCelular(String celular) {
         this.celular = celular;
+    }
+
+    public UserStatus getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(UserStatus userStatus) {
+        this.userStatus = userStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", sobrenome='" + sobrenome + '\'' +
+                ", email='" + email + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", celular='" + celular + '\'' +
+                ", userStatus=" + userStatus +
+                '}';
     }
 }
