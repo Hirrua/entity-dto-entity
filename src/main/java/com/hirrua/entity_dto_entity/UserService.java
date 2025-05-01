@@ -13,8 +13,14 @@ public class UserService {
 
     public UserDto createAnUser(UserDto userDto) {
         var user = toEntity(userDto);
+        System.out.println(user);
         userRepository.saveUser(user);
         return userDto;
+    }
+
+    public UserDto getByDocument(String cpf) {
+        var userFind = userRepository.searchByDocument(cpf);
+        return toDto(userFind);
     }
 
     private UserEntity toEntity(UserDto userDto) {
@@ -25,6 +31,17 @@ public class UserService {
                 userDto.cpf(),
                 userDto.celular(),
                 userDto.userStatus()
+        );
+    }
+
+    private UserDto toDto(UserEntity userEntity) {
+        return new UserDto(
+                userEntity.getNome(),
+                userEntity.getSobrenome(),
+                userEntity.getEmail(),
+                userEntity.getCpf(),
+                userEntity.getCelular(),
+                userEntity.getUserStatus()
         );
     }
 }
