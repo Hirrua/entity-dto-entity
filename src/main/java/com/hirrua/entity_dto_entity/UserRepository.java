@@ -1,12 +1,17 @@
 package com.hirrua.entity_dto_entity;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserRepository {
+
+    private final Logger log = LoggerFactory.getLogger(UserRepository.class);
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -14,5 +19,17 @@ public class UserRepository {
     @Transactional
     public void saveUser(UserEntity userEntity) {
         entityManager.persist(userEntity);
+    }
+
+    @Transactional
+    public UserEntity searchByDocument(String cpf) {
+        try {
+            return entityManager.createQuery("SELECT u FROM UserEntity u WHERE u.cpf = :cpf", UserEntity.class)
+                    .setParameter("cpf", cpf)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            log.warn("Nenhum UserEntity encontrado com o CPF: {}", cpf);
+            return null;
+        }
     }
 }
