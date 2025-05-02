@@ -1,5 +1,7 @@
 package com.hirrua.entity_dto_entity;
 
+import jakarta.validation.Valid;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +18,13 @@ public class UserController {
     }
 
     @PostMapping()
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-        var user = userService.createAnUser(userDto);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto userDto) {
+        try {
+            var user = userService.createAnUser(userDto);
+            return ResponseEntity.ok(user);
+        } catch (ConstraintViolationException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping()

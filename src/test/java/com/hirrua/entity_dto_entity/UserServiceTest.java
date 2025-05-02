@@ -1,5 +1,6 @@
 package com.hirrua.entity_dto_entity;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,6 +21,7 @@ class UserServiceTest {
     private UserRepository userRepository;
 
     @Test
+    @DisplayName("Deve retornar o usuário referente ao CPF")
     public void deveRetornarUmUsuarioComCpf() {
         String cpf = "12345678900";
         UserEntity userEntityMock = new UserEntity();

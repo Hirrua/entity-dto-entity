@@ -16,7 +16,6 @@ public class UserService {
 
     public UserDto createAnUser(UserDto userDto) {
         var user = toEntity(userDto);
-        System.out.println(user);
         userRepository.saveUser(user);
         return userDto;
     }
