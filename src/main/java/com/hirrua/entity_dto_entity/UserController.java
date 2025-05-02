@@ -3,8 +3,10 @@ package com.hirrua.entity_dto_entity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     private final UserService userService;
@@ -13,13 +15,18 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/users")
+    @PostMapping()
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
         var user = userService.createAnUser(userDto);
         return ResponseEntity.ok(user);
     }
 
-    @GetMapping("/users/{cpf}")
+    @GetMapping()
+    public ResponseEntity<List<UserDto>> getUsersIsActive() {
+        return ResponseEntity.ok(userService.getUsersActive());
+    }
+
+    @GetMapping("/{cpf}")
     public ResponseEntity<UserDto> getUserByDocument(@PathVariable(value = "cpf") String cpf) {
         var user = userService.getByDocument(cpf);
         return ResponseEntity.ok(user);

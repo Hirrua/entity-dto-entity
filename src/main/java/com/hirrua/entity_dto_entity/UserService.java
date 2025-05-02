@@ -2,6 +2,9 @@ package com.hirrua.entity_dto_entity;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserService {
 
@@ -21,6 +24,13 @@ public class UserService {
     public UserDto getByDocument(String cpf) {
         var userFind = userRepository.searchByDocument(cpf);
         return toDto(userFind);
+    }
+
+    public List<UserDto> getUsersActive() {
+        var users = userRepository.searchUserActive();
+        return users.stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
     }
 
     private UserEntity toEntity(UserDto userDto) {
