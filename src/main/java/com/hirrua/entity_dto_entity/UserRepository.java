@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class UserRepository {
 
@@ -29,6 +31,18 @@ public class UserRepository {
                     .getSingleResult();
         } catch (NoResultException e) {
             log.warn("Nenhum UserEntity encontrado com o CPF: {}", cpf);
+            return null;
+        }
+    }
+
+    @Transactional
+    public List<UserEntity> searchUserActive() {
+        try {
+            return entityManager.createQuery("SELECT u FROM UserEntity u WHERE u.userStatus = :status", UserEntity.class)
+                    .setParameter("status", UserStatus.ACTIVE)
+                    .getResultList();
+        } catch (NoResultException e) {
+            log.warn("Não foram encontrado usuários ativos");
             return null;
         }
     }
