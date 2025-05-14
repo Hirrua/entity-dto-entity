@@ -4,4 +4,4 @@ Esse pequeno projeto foi dessenvolvido apenas com o proposito de estudar alguns 
 
 - O mapeamento Entidade ≥ DTO ≥ Entidade
 - Criação de Test com JUnit e Mockito
-- Persistência de dados com Entity ‘Manager’
+- Persistência de dados com Entity Manager
